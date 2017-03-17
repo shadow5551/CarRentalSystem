@@ -1,6 +1,6 @@
 package events;
 
-import registration.RegistrationUser;
+import service.RegistrationServiceImpl;
 
 import java.util.Scanner;
 
@@ -41,9 +41,9 @@ public class UnauthorisedUserEvent {
     }
 
     private void registration() {
-        RegistrationUser registrationUser = new RegistrationUser();
+        RegistrationServiceImpl registrationServiceImpl = new RegistrationServiceImpl();
         try {
-            registrationUser.create();
+            registrationServiceImpl.create();
         } catch (Exception e) {
             System.out.println("Не удалось создать пользователя");
         }

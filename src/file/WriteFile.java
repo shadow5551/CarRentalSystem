@@ -1,7 +1,6 @@
 package file;
 
 import interfaces.Writer;
-import registration.User;
 
 import java.io.*;
 import java.util.logging.Logger;
@@ -13,18 +12,13 @@ public class WriteFile implements Writer {
     private Logger logger = Logger.getLogger(WriteFile.class.getName());
 
     @Override
-    public void writeUser(User user, String nameOfFile) {
-        if (new File(nameOfFile).exists()) {
-            File f = new File(nameOfFile);
-        } else {
+    public void writeItem(Object object, String nameOfFile) {
             try {
                 ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nameOfFile));
-                out.writeObject(user);
+                out.writeObject(object);
                 out.close();
             } catch (IOException ex) {
                 logger.warning(ex.getMessage());
             }
-
-        }
     }
 }

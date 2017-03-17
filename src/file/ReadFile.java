@@ -1,8 +1,9 @@
 package file;
 
 
+import model.Car;
 import interfaces.Reader;
-import registration.User;
+import model.User;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -13,29 +14,37 @@ import java.util.List;
  */
 
 public class ReadFile implements Reader {
-    private List<User> usersList = new ArrayList<>();
+    private List<User> userList = new ArrayList<>();
+    private List<Car> carList = new ArrayList<>();
 
     @Override
-    public List<User> readUsers(String nameOfFile) throws Exception {
-        if (new File(nameOfFile).exists()) {
-            File f = new File(nameOfFile);
-        } else {
-            try {
-                ObjectInputStream in = new ObjectInputStream(new FileInputStream(nameOfFile));
-                while (true) {
-                    try {
-                        usersList.add((User) in.readObject());
-                    } catch (Exception ignored) {
-                        return usersList;
+    public void readItem(String nameOfFile) {
+        try {
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(nameOfFile));
+            while (true) {
+                try {
+                    if (nameOfFile.equals("User.txt")){
+                        userList.add((User) in.readObject());
                     }
+                    if (nameOfFile.equals("Car.txt")){
+                        carList.add((Car) in.readObject());
+                    }
+                } catch (ClassNotFoundException e) {
+                    break;
                 }
-
-            } catch (FileNotFoundException e) {
-                System.out.println("Не найден файл");
-            } catch (EOFException ignored) {
             }
-            return usersList;
+        } catch (FileNotFoundException | EOFException ignored) {
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return null;
+    }
+
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public List<Car> getCarList() {
+        return carList;
     }
 }
