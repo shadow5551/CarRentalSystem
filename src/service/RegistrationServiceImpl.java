@@ -15,7 +15,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         User user = null;
         WriteFile writeFile = new WriteFile();
         Scanner in = new Scanner(System.in);
-        SighUpValidator validateRegistrationForm = new SighUpValidator();
+        SighUpValidator sighUpValidator = new SighUpValidator();
         try {
             do {
                 System.out.println("Логин");//MI5465678
@@ -27,7 +27,7 @@ public class RegistrationServiceImpl implements RegistrationService {
                 System.out.println("Роль");
                 hashmap.put("role", in.next());
                 user = new User(hashmap.get("login"), hashmap.get("password"), hashmap.get("passport"),hashmap.get("role"));
-            } while (!validateRegistrationForm.validate(user));
+            } while (!sighUpValidator.validate(user));
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

@@ -18,7 +18,7 @@ public class LoginServiceImpl implements LoginService{
         UserDaoImpl userDao = new UserDaoImpl();
         User user = null;
         Scanner in = new Scanner(System.in);
-        System.out.println("Логин");//MI5465678
+        System.out.println("Логин");//MI5465678,1234567890 -- admin
         hashmap.put("login", in.next());
         System.out.println("Пароль");
         hashmap.put("password", in.next());

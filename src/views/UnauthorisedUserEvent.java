@@ -47,7 +47,8 @@ public class UnauthorisedUserEvent {
             AuthorisedUserEvent authorisedUserEvent = new AuthorisedUserEvent();
             authorisedUserEvent.getAuthorisedUserEvent(user);}
             else{
-
+                AuthorisedAdminEvent authorisedAdminEvent = new AuthorisedAdminEvent();
+                authorisedAdminEvent.getAuthorisedAdminEvent(user);
             }
         }else {
             authorization();
