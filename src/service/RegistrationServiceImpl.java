@@ -24,7 +24,9 @@ public class RegistrationServiceImpl implements RegistrationService {
                 hashmap.put("password", in.next());
                 System.out.println("Паспорт");
                 hashmap.put("passport", in.next());
-                user = new User(hashmap.get("login"), hashmap.get("password"), hashmap.get("passport"));
+                System.out.println("Роль");
+                hashmap.put("role", in.next());
+                user = new User(hashmap.get("login"), hashmap.get("password"), hashmap.get("passport"),hashmap.get("role"));
             } while (!validateRegistrationForm.validate(user));
         } catch (Exception e) {
             e.printStackTrace();

@@ -43,8 +43,12 @@ public class UnauthorisedUserEvent {
         LoginServiceImpl loginService = new LoginServiceImpl();
         user = loginService.getCurrentUser();
         if (user!=null){
+            if (user.getRole().equals("user")){
             AuthorisedUserEvent authorisedUserEvent = new AuthorisedUserEvent();
-            authorisedUserEvent.getAuthorisedUserEvent(user);
+            authorisedUserEvent.getAuthorisedUserEvent(user);}
+            else{
+
+            }
         }else {
             authorization();
         }

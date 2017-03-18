@@ -54,6 +54,6 @@ public class AuthorisedUserEvent {
         System.out.println("1.Забронировать машину");
         System.out.println("2.Оплатить повреждения");
         System.out.println("3.Взятые в прокат авто");
-        System.out.println("3.Выход");
+        System.out.println("4.Выход");
     }
 }

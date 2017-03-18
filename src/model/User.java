@@ -1,7 +1,6 @@
 package model;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
 /**
  * Created by dima on 16.3.17.
@@ -10,12 +9,13 @@ public class User implements Serializable {
     private String login;
     private String password;
     private String numberOfPassport;
+    private String role;
 
-
-    public User(String login, String password, String numberOfPassport) {
+    public User(String login, String password, String numberOfPassport, String role) {
         this.login = login;
         this.password = password;
         this.numberOfPassport = numberOfPassport;
+        this.role = role;
     }
 
     public User() {
@@ -45,6 +45,13 @@ public class User implements Serializable {
         this.numberOfPassport = numberOfPassport;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
 
     @Override
     public String toString() {

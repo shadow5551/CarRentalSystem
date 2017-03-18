@@ -42,6 +42,10 @@ public class SighUpValidator implements Validatable {
                     "алфавита , остальные семь -- цифры");
             return false;
         }
+        if (!user.getRole().equals("admin") && !user.getRole().equals("user")){
+            System.out.println("Неверная роль");
+            return false;
+        }
         return userDao.isValidUser(user);
     }
 }

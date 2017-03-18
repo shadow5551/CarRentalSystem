@@ -5,4 +5,5 @@ package service;
  */
 public interface AdminService {
     void issueInvoice();
+    void addNewCar();
 }
