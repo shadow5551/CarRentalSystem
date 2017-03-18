@@ -1,13 +1,12 @@
 package validator;
 
+import dao.UserDaoImpl;
 import exceprion.CustomGenericException;
 import file.ReadFile;
-import interfaces.Validatable;
 import model.User;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,12 +17,12 @@ public class SighUpValidator implements Validatable {
     private Pattern patternLogin = Pattern.compile("^[a-zA-Z][a-zA-Z0-9-_\\.]{1,20}$");
     private Pattern patternPassword = Pattern.compile("[a-zA-Z0-9]{8,20}");
     private Pattern patternPassport = Pattern.compile("^[a-zA-Z]{2}[0-9]{7}$");
-    private List<User> userList = new ArrayList<>();
 
 
     @Override
     public boolean validate(Object object) throws CustomGenericException {
         User user = (User) object;
+        UserDaoImpl userDao = new UserDaoImpl();
 
         Matcher matcherLogin = patternLogin.matcher(user.getLogin());
         Matcher matcherPassword = patternPassword.matcher(user.getPassword());
@@ -43,27 +42,7 @@ public class SighUpValidator implements Validatable {
                     "алфавита , остальные семь -- цифры");
             return false;
         }
-        return validateFromFile(user);
-    }
-
-    @Override
-    public boolean validateFromFile(User currentUser) throws CustomGenericException {
-        ReadFile readFile = new ReadFile();
-        readFile.readItem("User.txt");
-        userList = readFile.getUserList();
-        if (userList.size()==0){return true;}
-        for (User user : userList) {
-            if (user.getLogin().equals(currentUser.getLogin())) {
-                System.out.println("Такой логин уже присутствует в системе");
-                return false;
-            }
-            if (user.getNumberOfPassport().equals(currentUser.getLogin())) {
-                System.out.println("Такой паспорт уже присутствует в системе");
-                return false;
-            }
-
-        }
-        return true;
+        return userDao.isValidUser(user);
     }
 }
 

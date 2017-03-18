@@ -6,13 +6,19 @@ import model.User;
  * Created by dima on 17.3.17.
  */
 public class UserServiceImpl implements UserService {
+
     @Override
-    public void save(User user) {
+    public void payForDamage() {
 
     }
 
     @Override
-    public User findByUsername(String username) {
-        return null;
+    public void bookingNewCar() {
+
+    }
+
+    @Override
+    public void bookedCar() {
+
     }
 }

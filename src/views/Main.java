@@ -1,6 +1,5 @@
-package events;
+package views;
 
-import events.UnauthorisedUserEvent;
 
 /**
  * Created by dima on 14.3.17.

@@ -18,6 +18,9 @@ public class User implements Serializable {
         this.numberOfPassport = numberOfPassport;
     }
 
+    public User() {
+    }
+
     public String getLogin() {
         return login;
     }

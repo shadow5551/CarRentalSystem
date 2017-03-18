@@ -10,14 +10,10 @@ import java.util.Collection;
  */
 public class CarServiceImpl implements CarSevice {
     @Override
-    public void add(Car entity) {
+    public void bookCar(Car entity) {
 
     }
 
-    @Override
-    public void delete(Car entity) {
-
-    }
 
     @Override
     public Collection<Car> getCars(String search) {

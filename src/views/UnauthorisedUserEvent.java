@@ -1,5 +1,7 @@
-package events;
+package views;
 
+import model.User;
+import service.LoginServiceImpl;
 import service.RegistrationServiceImpl;
 
 import java.util.Scanner;
@@ -37,7 +39,15 @@ public class UnauthorisedUserEvent {
     }
 
     private void authorization() {
-        System.out.println("Авторизация прошла успешно , Здравствуйте пользователь");
+        User user;
+        LoginServiceImpl loginService = new LoginServiceImpl();
+        user = loginService.getCurrentUser();
+        if (user!=null){
+            AuthorisedUserEvent authorisedUserEvent = new AuthorisedUserEvent();
+            authorisedUserEvent.getAuthorisedUserEvent(user);
+        }else {
+            authorization();
+        }
     }
 
     private void registration() {

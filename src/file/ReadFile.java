@@ -13,7 +13,7 @@ import java.util.List;
  * Created by dima on 15.3.17.
  */
 
-public class ReadFile implements Reader {
+public class ReadFile implements Reader,Serializable {
     private List<User> userList = new ArrayList<>();
     private List<Car> carList = new ArrayList<>();
 
