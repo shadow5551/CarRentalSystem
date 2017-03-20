@@ -1,5 +1,6 @@
 package views;
 
+import dao.CarDaoImpl;
 import model.Car;
 import model.User;
 import service.AdminServiceImpl;
@@ -11,10 +12,9 @@ import java.util.Scanner;
 /**
  * Created by dima on 18.3.17.
  */
-public class AuthorisedAdminEvent {
+public class AuthorisedAdminEvent extends AuthorisedEvent{
     private Scanner scanner = new Scanner(System.in);
     private AdminServiceImpl adminService = new AdminServiceImpl();
-    private List<Car> carsList = new ArrayList<>();
 
     public boolean getAuthorisedAdminEvent(User user) {
         boolean flag = true;
@@ -30,9 +30,9 @@ public class AuthorisedAdminEvent {
                 case "2":
                     getAllCars();
                     break;
-               /* case "3":
-                    bookedCar();
-                    break;*/
+                case "3":
+                    userOrders();
+                    break;
                 case "4":
                     flag = false;
                     break;
@@ -43,15 +43,25 @@ public class AuthorisedAdminEvent {
         return true;
     }
 
-    private void getAllCars() {
-        carsList = adminService.getCars();
-        if (carsList.isEmpty()) {
-            System.out.println("Машин в автопарке нет");
-        } else {
-            for (int i = 0; i < carsList.size(); i++) {
-                System.out.println(i + 1 + ". " + carsList.get(i).getBrand() + " " + carsList.get(i).getModel());
-            }
+    private void userOrders() {
+        getAllOrders();
+        System.out.println("Заказы Клиентов:");
+       // getAllCars();
+        if (super.ordersList.size()!=0) {
+            adminService.userOrders();
         }
+
+    }
+
+
+    @Override
+    void getAllOrders() {
+        super.getAllOrders();
+    }
+
+    @Override
+    void getAllCars() {
+        super.getAllCars();
     }
 
     private void addNewCar() {
@@ -65,6 +75,7 @@ public class AuthorisedAdminEvent {
     private void getAuthorizedAdminAbilities() {
         System.out.println("1.Добавить машину");
         System.out.println("2.Просмотреть список машин в автопарке");
+        System.out.println("3.Заказы клиентов");
         System.out.println("4.Выход");
     }
 

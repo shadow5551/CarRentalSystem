@@ -1,8 +1,10 @@
 package file;
 
 import interfaces.Writer;
+import model.Order;
 
 import java.io.*;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -20,5 +22,17 @@ public class WriteFile implements Writer {
             } catch (IOException ex) {
                 logger.warning(ex.getMessage());
             }
+    }
+
+    @Override
+    public void writeCollection(List<Order> list, String nameOfFile) {
+        for (Order order:list){
+            writeItem(order,nameOfFile);
+        }
+    }
+
+
+    public  void delete(String nameFile) {
+        new File(nameFile).delete();
     }
 }

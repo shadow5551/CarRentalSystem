@@ -2,6 +2,7 @@ package service;
 
 import dao.UserDaoImpl;
 import model.User;
+import validator.SignInValidator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,14 +16,14 @@ public class LoginServiceImpl implements LoginService{
 
     @Override
     public User getCurrentUser() {
-        UserDaoImpl userDao = new UserDaoImpl();
-        User user = null;
+        SignInValidator signInValidator = new SignInValidator();
+        User user;
         Scanner in = new Scanner(System.in);
         System.out.println("Логин");//MI5465678,1234567890 -- admin
         hashmap.put("login", in.next());
         System.out.println("Пароль");
         hashmap.put("password", in.next());
-        user = userDao.isPresentUser(hashmap.get("login"), hashmap.get("password"));
+        user = signInValidator.isExistingUser(hashmap.get("login"), hashmap.get("password"));
         return user;
     }
 }

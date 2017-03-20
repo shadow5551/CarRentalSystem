@@ -1,9 +1,10 @@
 package views;
 
+import dao.UserDaoImpl;
 import model.User;
 import service.LoginServiceImpl;
-import service.RegistrationServiceImpl;
 
+import java.io.File;
 import java.util.Scanner;
 
 /**
@@ -56,13 +57,13 @@ public class UnauthorisedUserEvent {
     }
 
     private void registration() {
-        RegistrationServiceImpl registrationServiceImpl = new RegistrationServiceImpl();
-        try {
-            registrationServiceImpl.create();
-        } catch (Exception e) {
+        UserDaoImpl userDao = new UserDaoImpl();
+        if (!userDao.create()){
             System.out.println("Не удалось создать пользователя");
+        }else {
+            System.out.println("Пользователь успешно создан");
         }
-        System.out.println("Пользователь успешно создан");
+
     }
 
     private void getUnauthorizedUserAbilities() {

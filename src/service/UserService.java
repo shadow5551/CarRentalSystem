@@ -7,6 +7,6 @@ import model.User;
  */
 public interface UserService {
     void payForDamage();
-    void bookingNewCar();
+    boolean bookingNewCar(User user);
     void bookedCar();
 }

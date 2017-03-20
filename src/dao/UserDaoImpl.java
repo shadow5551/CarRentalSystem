@@ -1,52 +1,58 @@
 package dao;
 
 import file.ReadFile;
+import file.WriteFile;
 import model.User;
+import validator.SighUpValidator;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by dima on 18.3.17.
  */
 public class UserDaoImpl implements UserDao {
-    private List<User> userList = new ArrayList<>();
     private ReadFile readFile = new ReadFile();
+    private Map<String, String> hashmap = new HashMap<String, String>();
 
     @Override
-    public boolean isValidUser(User currentUser) {
+    public List<User> getAll() {
         readFile.readItem("User.txt");
-        userList = readFile.getUserList();
-        for (User user : userList) {
-            if (user.getLogin().equals(currentUser.getLogin())) {
-                System.out.println("Такой логин уже присутствует в системе");
-                return false;
-            }
-            if (user.getNumberOfPassport().equals(currentUser.getPassword())){
-                System.out.println("Такой паспорт уже присутствует в системе");
-                return false;
-            }
-
-        }
-        return true;
+        return readFile.getUserList();
     }
 
     @Override
-    public User isPresentUser(String login, String password) {
-        readFile.readItem("User.txt");
-        userList = readFile.getUserList();
-        for (User user : userList) {
-            if (user.getLogin().equals(login) && user.getPassword().equals(password)){
-                System.out.println("C возвращением, " + login);
-                return user;
-            }
-            if (!user.getPassword().equals(password) && user.getLogin().equals(login)){
-                System.out.println("Неверно введен пароль");
-                return null;
-            }
-
-        }
-        System.out.println("Пользователь не найден");
+    public User update(User user) {
         return null;
+    }
+
+    @Override
+    public boolean delete(User user) {
+        return false;
+    }
+
+    @Override
+    public boolean create() {
+        User user = null;
+        WriteFile writeFile = new WriteFile();
+        Scanner in = new Scanner(System.in);
+        SighUpValidator sighUpValidator = new SighUpValidator();
+        try {
+            do {
+                System.out.println("Логин");//MI5465678
+                hashmap.put("login", in.next());
+                System.out.println("Пароль");
+                hashmap.put("password", in.next());
+                System.out.println("Паспорт");
+                hashmap.put("passport", in.next());
+                System.out.println("Роль");
+                hashmap.put("role", in.next());
+                user = new User(hashmap.get("login"), hashmap.get("password"), hashmap.get("passport"),hashmap.get("role"));
+            } while (!sighUpValidator.validate(user));
+        } catch (Exception e) {
+            return false;
+        } finally {
+            writeFile.writeItem(user,"User.txt");
+        }
+        return true;
     }
 }

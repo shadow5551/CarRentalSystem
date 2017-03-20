@@ -22,13 +22,11 @@ public class SighUpValidator implements Validatable {
     @Override
     public boolean validate(Object object) throws CustomGenericException {
         User user = (User) object;
-        UserDaoImpl userDao = new UserDaoImpl();
-
         Matcher matcherLogin = patternLogin.matcher(user.getLogin());
         Matcher matcherPassword = patternPassword.matcher(user.getPassword());
         Matcher matcherPassport = patternPassport.matcher(user.getNumberOfPassport());
         if (!matcherLogin.matches()) {
-            System.out.println("Проблема с логином. Ограничение от 2 до 20 символов, которыми могут быть " +
+           System.out.println("Проблема с логином. Ограничение от 2 до 20 символов, которыми могут быть " +
                     "буквы и цифры, первый символ обязательно буква");
             return false;
         }
@@ -46,7 +44,24 @@ public class SighUpValidator implements Validatable {
             System.out.println("Неверная роль");
             return false;
         }
-        return userDao.isValidUser(user);
+        return isValidUser(user);
+    }
+
+    public boolean isValidUser(User currentUser) {
+        UserDaoImpl userDao = new UserDaoImpl();
+        List<User> userList = userDao.getAll();
+        for (User user : userList) {
+            if (user.getLogin().equals(currentUser.getLogin())) {
+                System.out.println("Такой логин уже присутствует в системе");
+                return false;
+            }
+            if (user.getNumberOfPassport().equals(currentUser.getPassword())){
+                System.out.println("Такой паспорт уже присутствует в системе");
+                return false;
+            }
+
+        }
+        return true;
     }
 }
 

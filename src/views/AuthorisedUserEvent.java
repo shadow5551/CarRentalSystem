@@ -1,14 +1,18 @@
 package views;
 
+import exceprion.CustomGenericException;
+import model.Order;
 import model.User;
+import service.UserServiceImpl;
 
 import java.util.Scanner;
 
 /**
  * Created by dima on 16.3.17.
  */
-public class AuthorisedUserEvent {
+public class AuthorisedUserEvent extends AuthorisedEvent{
     private Scanner scanner = new Scanner(System.in);
+    private UserServiceImpl userService = new UserServiceImpl();
 
     public boolean getAuthorisedUserEvent(User user) {
         boolean flag = true;
@@ -19,13 +23,13 @@ public class AuthorisedUserEvent {
             choice = scanner.nextLine();
             switch (choice) {
                 case "1":
-                    bookingNewCar();
+                    bookingNewCar(user);
                     break;
                 case "2":
                     payForDamage();
                     break;
                 case "3":
-                    bookedCar();
+                    bookedCar(user);
                     break;
                 case "4":
                     flag = false;
@@ -37,19 +41,36 @@ public class AuthorisedUserEvent {
         return true;
     }
 
+    @Override
+    void getAllOrders() {
+        super.getAllOrders();
+    }
 
-    private void bookingNewCar() {
-        System.out.println("бронь");
+    @Override
+    void getAllCars() {
+        super.getAllCars();
+    }
 
+    private void bookingNewCar(User user) {
+        getAllCars();
+        if (super.carsList.size()!=0) {
+            userService.bookingNewCar(user);
+        }
     }
 
     private void payForDamage(){
         System.out.println("pay");
     }
 
-    private void bookedCar(){
-        System.out.println("Забронированные авто");
+    private void bookedCar(User user){
+        getAllOrders();
+        for (Order order:super.ordersList){
+            if (order.getLogin().equals(user.getLogin())){
+                System.out.println(order.toString());
+            }
+        }
     }
+
     private void getAuthorizedUserAbilities(){
         System.out.println("1.Забронировать машину");
         System.out.println("2.Оплатить повреждения");

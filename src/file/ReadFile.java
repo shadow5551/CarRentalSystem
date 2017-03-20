@@ -3,6 +3,7 @@ package file;
 
 import model.Car;
 import interfaces.Reader;
+import model.Order;
 import model.User;
 
 import java.io.*;
@@ -16,6 +17,7 @@ import java.util.List;
 public class ReadFile implements Reader,Serializable {
     private List<User> userList = new ArrayList<>();
     private List<Car> carList = new ArrayList<>();
+    private List<Order> orderList = new ArrayList<>();
 
     @Override
     public void readItem(String nameOfFile) {
@@ -29,7 +31,11 @@ public class ReadFile implements Reader,Serializable {
                     if (nameOfFile.equals("Car.txt")){
                         carList.add((Car) in.readObject());
                     }
+                    if (nameOfFile.equals("Order.txt")){
+                        orderList.add((Order) in.readObject());
+                    }
                 } catch (ClassNotFoundException e) {
+                    in.close();
                     break;
                 }
             }
@@ -39,6 +45,9 @@ public class ReadFile implements Reader,Serializable {
         }
     }
 
+    public List<Order> getOrderList() {
+        return orderList;
+    }
 
     public List<User> getUserList() {
         return userList;
