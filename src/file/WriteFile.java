@@ -15,13 +15,13 @@ public class WriteFile implements Writer {
 
     @Override
     public void writeItem(Object object, String nameOfFile) {
-            try {
-                ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nameOfFile));
-                out.writeObject(object);
-                out.close();
-            } catch (IOException ex) {
-                logger.warning(ex.getMessage());
-            }
+        try {
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nameOfFile));
+            out.writeObject(object);
+            out.close();
+        } catch (IOException ex) {
+            logger.warning(ex.getMessage());
+        }
     }
 
     @Override
@@ -31,8 +31,4 @@ public class WriteFile implements Writer {
         }
     }
 
-
-    public  void delete(String nameFile) {
-        new File(nameFile).delete();
-    }
 }

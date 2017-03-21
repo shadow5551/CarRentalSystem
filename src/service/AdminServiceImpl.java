@@ -47,7 +47,6 @@ public class AdminServiceImpl implements  AdminService {
 
     private void actionWithOrder(Order order,int idOrder) {
         WriteFile writeFile = new WriteFile();
-        writeFile.delete("Order.txt");
         info();
         boolean flag = true;
         String choice;
